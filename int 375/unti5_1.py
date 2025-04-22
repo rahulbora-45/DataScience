@@ -58,21 +58,66 @@
 # else:
 #     print("\n Fail to reject thr null hypothesis: No significant "
 
-from scipy import  stats
-group_a=[23,43,59,69]
-group_b=[12,42,96,103]
-t,p=stats.ttest_ind(group_a,group_b, equal_var=True)
+# from scipy import  stats
+# group_a=[23,43,59,69]
+# group_b=[12,42,96,103]
+# t,p=stats.ttest_ind(group_a,group_b, equal_var=True)
 
 
-print(f"t-statistics: {t:.4f}")
-print(f"p-value: {p:.4f}")
+# print(f"t-statistics: {t:.4f}")
+# print(f"p-value: {p:.4f}")
 
 
+# alpha=0.05
+# if p<alpha:
+#     print("\nReject the null hypothesis:There is a significant difference betwwent he two groups")
+# else:
+#     print("\n Fail to reject thr null hypothesis: No significant ")
+
+
+###########-----------------------------------------------------------------------
+
+from statsmodels.stats.proportion import proportions_ztest
+from scipy import stats
+
+# Group 1 : 50 conversions out of 200 visits
+#Gruoup 2L 65 conversions out  of 220  visits
+
+conv_rate=[50,65]
+samples=[200,200]
+z_stat,p_value=proportions_ztest(conv_rate,samples)
+print("Z-statistic:",z_stat)
+print("P-value:",p_value)
 alpha=0.05
-if p<alpha:
-    print("\nReject the null hypothesis:There is a significant difference betwwent he two groups")
+if p_value<alpha:
+    print("Reject thr null hypothesis -sigificant difference between proportions")
 else:
-    print("\n Fail to reject thr null hypothesis: No significant ")
+    print("Fail to reject the  null hypothesis -no significant difference between the proportions")
+
+########################## t test#######################
+
+#Sample data: revenue per user
+g1 = [23, 21, 19, 24, 25]
+g2 = [27, 29, 26, 30, 28]
+t_stat_two, p_value_two = stats.ttest_ind(g1, g2, equal_var=True)
+print("Two-sample t-test (Independent samples, equal variance):")
+print(f"T-statistic = {t_stat_two:.4f}")
+print(f"P-value = {p_value_two:.4f}")
+
+if p_value_two < alpha:
+    print("Conclusion: Reject the null hypothesis. There is a significant differ")
+else:
+    print("Conclusion: Fail to reject the null hypothesis. No significant differ")
+
+
+###############################Shapiro-Wilh Test Statistics###################################
+
+import numpy as np
+data=[12.1,13.4,13.8,14.0,13.9,13.3,12.9,13.7,13.5,14.1]
+statistic,p_value=stats.shapiro(data)
+print("Shapiro-Wikh Test  Statistics",statistic)
+print("P-value: ",p_value)
+alpha=0.05
 
 
 
